@@ -1,0 +1,9 @@
+name = "ai4smartmfg-email-relay"
+main = "email-relay.js"
+compatibility_date = "2026-05-21"
+
+# Send Email binding — the destination must already be a verified
+# destination in Cloudflare Email Routing for ai4smartmfg.com.
+[[send_email]]
+name = "SEND_EMAIL"
+destination_address = "sudhir@ai4smartmfg.com"
