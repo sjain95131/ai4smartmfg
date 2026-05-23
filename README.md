@@ -29,18 +29,13 @@ the production site, its `pages.dev` subdomain, and local dev.
 Bluehost public web root for `asyjo.com`. No DNS / mail config changes —
 Bluehost's existing authorized sender (`no-reply@asyjo.com`) is reused.
 
-### Cloudflare-side code (inert)
+### Why not Cloudflare for the contact form?
 
-The earlier Cloudflare path is left in the repo but not wired to the form:
-
-- `functions/contact.js` — Pages Function (used to receive form POST).
-- `worker/email-relay.js` — Standalone Worker with Send Email binding.
-- `wrangler.toml` — Pages-level Service Binding (`EMAIL_RELAY` → Worker).
-
-It didn't ship because Cloudflare's Send Email binding requires Email Routing
-to be enabled on the zone, which requires MX records pointing at Cloudflare —
-incompatible with this domain's Google Workspace MX. Kept as code for a
-future migration off Bluehost; safe to delete when no longer needed.
+Cloudflare's Send Email binding requires Email Routing enabled on the zone,
+which requires MX records pointing at Cloudflare — incompatible with the
+domain's Google Workspace MX. An earlier Worker + Pages Function attempt
+was scrapped; if Bluehost is later retired, the cleanest replacement is a
+service like Resend called from a Pages Function (no MX changes needed).
 
 ## Local preview
 ```bash
