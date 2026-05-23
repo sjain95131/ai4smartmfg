@@ -18,7 +18,7 @@ Plain HTML, CSS, and a few lines of JS for the mobile nav. No framework, no buil
 
 The contact form posts cross-origin to **Bluehost PHP**:
 [`bluehost/ai4smartmfg-contact.php`](bluehost/ai4smartmfg-contact.php) →
-hosted at `https://acquisitions.asyjo.com/ai4smartmfg-contact.php`.
+hosted at `https://asyjo.com/ai4smartmfg-contact.php`.
 
 The PHP handler validates fields, sends an RFC-2047-encoded text email via
 `mail()` to `sudhir@ai4smartmfg.com`, and replies in JSON. `Reply-To` is the
@@ -26,9 +26,8 @@ submitter so hitting Reply in Gmail goes straight to them. CORS is locked to
 the production site, its `pages.dev` subdomain, and local dev.
 
 **Deploying the PHP file:** upload `bluehost/ai4smartmfg-contact.php` to the
-Bluehost public web root for the `acquisitions.asyjo.com` site (same place
-`send-teaser.php` lives). No DNS / mail config changes — Bluehost's existing
-authorized sender (`no-reply@asyjo.com`) is reused.
+Bluehost public web root for `asyjo.com`. No DNS / mail config changes —
+Bluehost's existing authorized sender (`no-reply@asyjo.com`) is reused.
 
 ### Cloudflare-side code (inert)
 
