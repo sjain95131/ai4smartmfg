@@ -55,10 +55,13 @@ a:hover { color: var(--ink); }
 .wordmark {
   font-weight: 500;
   font-size: 17px;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.06em;
   color: var(--ink);
+  font-variant:small-caps;
   display: inline-flex;
   align-items: baseline;
+
+  font-size:1rem;font-weight:500;color:var(--white);text-decoration:none;letter-spacing:0.06em;font-variant:small-caps;display:inline-flex;align-items:baseline;
 }
 .wordmark .mark-prefix { color: var(--ink); font-weight: 500; }
 .wordmark .mark-rest   { color: var(--ink); font-weight: 500; }
@@ -143,7 +146,7 @@ section.alt { background: var(--bg-alt); }
   font-size: 12px;
   font-weight: 500;
   color: var(--ink-soft);
-  text-transform: uppercase;
+  text-transform: NONE;
   letter-spacing: 0.16em;
   margin: 0 0 24px 0;
 }

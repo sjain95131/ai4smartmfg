@@ -2,7 +2,7 @@
 
 Public site for [ai4smartmfg.com](https://ai4smartmfg.com).
 
-ai4smartmfg is a practical-AI consultancy for small and mid-sized manufacturers. Sole legal entity behind it is Asyjo Corporation (Massachusetts).
+ai4smartmfg is a practical-AI consultancy for small and mid-sized manufacturers. Sole legal entity behind it is Asyjo Inc (Massachusetts).
 
 ## Stack
 Plain HTML, CSS, and a few lines of JS for the mobile nav. No framework, no build step. Hosted free on Cloudflare Pages; pushes to `main` deploy automatically.
@@ -14,9 +14,16 @@ Plain HTML, CSS, and a few lines of JS for the mobile nav. No framework, no buil
 - `assets/css/styles.css` — Inter Tight, monochrome with a single muted-industrial-blue accent (#3B5566)
 - `assets/js/nav.js` — mobile nav toggle
 
-## Placeholders to replace before going live
-- `https://cal.com/REPLACE_ME` — Cal.com 30-minute booking URL. Used in hero, contact page, and closing CTA.
-- `https://formspree.io/f/REPLACE_ME` — Formspree endpoint for the contact form, in `contact.html`.
+## Contact form
+
+The contact form posts to `/contact`, handled by `functions/contact.js` (a Cloudflare Pages Function). It builds an RFC 5322 message and relays it to `sudhir@ai4smartmfg.com` via the Cloudflare Email Workers `SEND_EMAIL` binding.
+
+**Required Cloudflare dashboard config** (one-time):
+1. Workers & Pages → this project → Settings → Functions → Bindings → **Add Send Email**
+2. Variable name: `SEND_EMAIL`
+3. Destination address: `sudhir@ai4smartmfg.com` (must already be a verified destination in Email Routing — it is, since inbound mail to that address works).
+
+Sender is `noreply@ai4smartmfg.com` (no mailbox required — Cloudflare permits sending from any address on the zone). `Reply-To` is set to the submitter, so replies in Gmail go directly to them.
 
 ## Local preview
 ```bash

@@ -8,6 +8,9 @@ Thumbs.db
 *.swp
 *.swo
 
+# Claude Code local state (machine-specific settings, project memory)
+.claude/
+
 # Local servers / build
 .cache/
 node_modules/

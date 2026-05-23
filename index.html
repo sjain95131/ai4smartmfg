@@ -3,144 +3,266 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ai4smartmfg — Practical AI for Small &amp; Mid-Sized Manufacturers</title>
-  <meta name="description" content="Practical AI for small and mid-sized manufacturers. Safe, pragmatic, ROI-focused adoption on the shop floor, in sales, and in the back office.">
+  <title>ai4smartmfg — The problem you keep putting off, fixed in days.</title>
+  <meta name="description" content="We make AI work for you. We build AI expert agents that know your factory — built and deployed in days.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --black:#2c2c2e;
+      --white:#ffffff;
+      --ink:#0a0a0a;
+      --body-on-light:#3a3a37;
+      --muted-on-light:#888780;
+      --on-dark:rgba(255,255,255,0.65);
+      --muted-on-dark:rgba(255,255,255,0.55);
+      --hairline-dark:rgba(255,255,255,0.10);
+      --hero-bg:#3a3a3c;
+      --maxw:1120px;
+      --pad:clamp(1.5rem,5vw,4rem);
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;scroll-behavior:smooth;}
+    body{font-family:'Inter Tight',sans-serif;font-weight:400;color:var(--ink);background:var(--white);line-height:1.5;}
+
+    .container{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad);width:100%;}
+
+    /* sections */
+    section{margin-top:2rem;margin-bottom:2rem;padding-top:clamp(2.45rem,4.9vw,4.2rem);padding-bottom:clamp(2.45rem,4.9vw,4.2rem);}
+    section:first-of-type{margin-top:0;}
+    main>section:last-of-type{margin-bottom:0;}
+    .dark{background:var(--black);color:var(--white);}
+    .light{background:var(--white);color:var(--ink);}
+
+    .eyebrow{font-size:0.8125rem;letter-spacing:0.07em;text-transform:uppercase;font-weight:500;margin-bottom:1rem;}
+    .dark .eyebrow{color:var(--muted-on-dark);}
+    .light .eyebrow{color:var(--muted-on-light);}
+
+    h1,h2{font-weight:500;letter-spacing:-0.022em;line-height:1.05;}
+    h1{font-size:clamp(1.75rem,3vw,2.5rem);max-width:none;}
+    h2{font-size:clamp(2rem,4.2vw,2.75rem);max-width:14em;}
+
+    .lead{font-size:clamp(1.125rem,1.6vw,1.375rem);line-height:1.5;max-width:30em;}
+    .dark .lead{color:var(--on-dark);}
+    .light .lead{color:var(--body-on-light);}
+
+    /* header */
+    .site-header{background:var(--black);}
+    .header-inner{display:flex;align-items:center;justify-content:space-between;padding-top:1.5rem;padding-bottom:1.5rem;}
+    .wordmark{font-size:1rem;font-weight:500;color:var(--white);text-decoration:none;letter-spacing:0.06em;}
+    .wordmark .sm{font-size:0.78em;letter-spacing:0.08em;}
+    .nav a{font-size:1rem;font-weight:500;color:var(--white);text-decoration:none;margin-left:1.5rem;letter-spacing:0.06em;transition:opacity .2s ease;}
+    .nav a:hover{opacity:0.7;}
+    .nav a .sm{font-size:0.78em;letter-spacing:0.08em;}
+
+    /* hero */
+    .hero{background:var(--hero-bg);color:var(--white);}
+    .hero h1{margin-bottom:2.5rem;}
+    .hero .lead{margin-bottom:2.5rem;max-width:none;}
+    .hero .lead.d1{margin-bottom:1.5rem;}
+
+    /* buttons */
+    .btn{display:inline-block;font-size:0.9375rem;font-weight:500;text-decoration:none;padding:0.9375rem 1.875rem;border-radius:980px;transition:transform .15s ease,opacity .2s ease;}
+    .btn:active{transform:scale(0.97);}
+    .btn-light{background:var(--white);color:var(--black);}
+    .btn-light:hover{opacity:0.88;}
+    .btn-dark{background:var(--black);color:var(--white);}
+    .btn-dark:hover{opacity:0.86;}
+    .btn-outline{background:transparent;color:inherit;border:1px solid currentColor;padding:calc(0.9375rem - 1px) calc(1.875rem - 1px);}
+    .btn-outline:hover{opacity:0.7;}
+    .btn-sm{font-size:0.8125rem;padding:0.5rem 1.125rem;}
+    .btn-row{display:flex;gap:1rem;flex-wrap:wrap;align-items:center;}
+
+    /* contact form */
+    .contact-form{max-width:32em;margin-top:3rem;display:grid;gap:1.25rem;}
+    .contact-form .form-row{display:flex;flex-direction:column;gap:0.5rem;}
+    .contact-form label{font-size:0.875rem;color:var(--body-on-light);font-weight:500;}
+    .contact-form input,
+    .contact-form textarea{font-family:inherit;font-size:1rem;padding:0.75rem 1rem;border:1px solid #d0d0d0;border-radius:8px;background:var(--white);color:var(--ink);outline:none;transition:border-color .2s ease;}
+    .contact-form input:focus,
+    .contact-form textarea:focus{border-color:var(--ink);}
+    .contact-form textarea{min-height:8em;resize:vertical;}
+    .contact-form button{justify-self:start;font-family:inherit;cursor:pointer;}
+    .form-note{font-size:0.875rem;color:var(--muted-on-light);margin-top:0.25rem;}
+
+    /* what we fix */
+    .fix{margin-top:2rem;margin-bottom:2rem;padding-top:clamp(2.45rem,4.9vw,4.2rem);padding-bottom:clamp(2.45rem,4.9vw,4.2rem);}
+    .fix h2{font-size:clamp(1.75rem,3vw,2.5rem);max-width:none;margin-bottom:1.5rem;}
+    .fix .lead{font-size:clamp(1.125rem,1.6vw,1.375rem);max-width:none;color:var(--ink);}
+    .fix .title-lead{margin-bottom:1.5rem;}
+    .fix p+p{margin-top:1.25rem;}
+    .fix .handback{color:var(--ink);font-weight:500;}
+
+    /* how it works */
+    .how{margin-top:2rem;margin-bottom:2rem;padding-top:clamp(2.45rem,4.9vw,4.2rem);padding-bottom:clamp(2.45rem,4.9vw,4.2rem);}
+    .how h2{font-size:clamp(1.75rem,3vw,2.5rem);max-width:none;margin-bottom:1.5rem;}
+    .how .lead{font-size:clamp(1.125rem,1.6vw,1.375rem);max-width:none;color:var(--white);}
+    .how .title-lead{margin-bottom:1.5rem;}
+    .how .steps{margin-top:0;}
+    .how .step p{color:var(--white);}
+    .how .step .step-label .num{color:var(--white);}
+    .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(2rem,4vw,3rem);max-width:52em;margin-top:clamp(2rem,4vw,3rem);}
+    .step .step-label{font-size:0.9375rem;font-weight:500;color:var(--white);margin-bottom:0.625rem;}
+    .step .step-label .num{display:inline-block;margin-right:0.5rem;color:var(--muted-on-dark);}
+    .step p{font-size:1rem;line-height:1.55;color:var(--on-dark);}
+
+    /* founder */
+    .founder h2{font-size:clamp(1.75rem,3vw,2.5rem);max-width:none;margin-bottom:1.5rem;}
+    .founder .lead{font-size:clamp(1.125rem,1.6vw,1.375rem);max-width:none;color:var(--ink);}
+    .founder .title-lead{margin-bottom:1.5rem;}
+    .founder .founder-row{align-items:flex-start;max-width:50em;margin-top:0;}
+    .founder .founder-text>p+p{margin-top:1.25rem;}
+    .founder .signature{margin-top:1.5rem;}
+    .founder-row{display:flex;gap:clamp(1.25rem,3vw,2rem);align-items:center;max-width:40em;margin-top:clamp(1.5rem,3vw,2.25rem);}
+    .avatar{width:84px;height:84px;border-radius:50%;background:var(--black);color:var(--white);display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:500;flex-shrink:0;}
+    .founder-row p{font-size:1.125rem;line-height:1.6;color:var(--body-on-light);}
+    .founder-row strong{color:var(--ink);font-weight:500;}
+    .placeholder{color:var(--muted-on-light);}
+
+    /* your data */
+    .data h2{font-size:clamp(1.75rem,3vw,2.5rem);max-width:none;margin-bottom:1.5rem;}
+    .data .lead{font-size:clamp(1.125rem,1.6vw,1.375rem);max-width:none;color:var(--white);}
+    .data .title-lead{margin-bottom:1.5rem;}
+
+    /* spacing helpers */
+    h2+.lead,h2+.steps{margin-top:1.75rem;}
+    .cta h2{font-size:clamp(1.75rem,3vw,2.5rem);max-width:none;margin-bottom:1.5rem;}
+    .cta .lead{font-size:clamp(1.125rem,1.6vw,1.375rem);max-width:none;color:var(--ink);margin-bottom:2.5rem;}
+
+    /* footer */
+    .site-footer{background:var(--black);border-top:0.5px solid var(--hairline-dark);}
+    .footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;padding-top:1.5rem;padding-bottom:1.5rem;}
+    .site-footer span,.site-footer a{font-size:0.8125rem;color:rgba(255,255,255,0.45);text-decoration:none;}
+    .footer-links a{margin-left:1.25rem;transition:color .2s ease;}
+    .footer-links a:hover{color:var(--white);}
+
+    /* entrance animation */
+    @keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+    .reveal{opacity:0;animation:fadeUp .7s cubic-bezier(.2,.7,.2,1) forwards;}
+    .d1{animation-delay:.05s;}.d2{animation-delay:.16s;}.d3{animation-delay:.27s;}.d4{animation-delay:.38s;}
+    @media (prefers-reduced-motion:reduce){.reveal{animation:none;opacity:1;}}
+
+    @media (max-width:600px){
+      .founder-row{flex-direction:column;align-items:flex-start;}
+      .nav a{margin-left:1rem;}
+    }
+  </style>
 </head>
 <body>
 
 <header class="site-header">
   <div class="container header-inner">
-    <a href="index.html" class="wordmark" aria-label="ai4smartmfg home">
-      <span class="mark-prefix">ai4</span><span class="mark-rest">smartmfg</span>
-    </a>
-    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-    <nav class="nav" aria-label="Primary">
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-    </nav>
+    <a href="index.html" class="wordmark">AI <span class="sm">FOR </span>S<span class="sm">MART </span>M<span class="sm">ANUFACTURING</span></a>
+    <a href="https://cal.com/ai4smartmfg/30min" class="btn btn-light btn-sm">Book a call</a>
   </div>
 </header>
 
 <main>
 
-  <!-- Hero -->
+  <!-- HERO -->
   <section class="hero">
     <div class="container">
-      <h1>AI that knows your factory.</h1>
-      <p class="tagline">We make AI work for you.</p>
-      <div class="btn-row">
-        <a href="https://cal.com/REPLACE_ME" class="btn">Book a 30-minute call</a>
-        <a href="contact.html" class="btn btn-light">Send a note</a>
+      <p class="lead reveal d1">We make AI work for you</p>
+      <h1 class="reveal d2">We build AI Expert Agents that know your operations.</h1>
+      <div class="btn-row reveal d3">
+        <a href="https://cal.com/ai4smartmfg/30min" class="btn btn-light">Book a 30-minute call</a>
+        <a href="#contact-form" class="btn btn-outline">Send a note</a>
       </div>
     </div>
   </section>
 
-  <!-- Value-prop lead-in -->
-  <section class="leadin alt">
+  <!-- WHAT WE FIX -->
+  <section class="light fix">
     <div class="container">
-      <p>Keep frontier reasoning married to <span class="em">your own data</span>&nbsp;— your SOPs, your work instructions, your records, your equipment. The result is an AI that knows what you make, how you make it, and how you want to make it.</p>
+      <h2>Too many fires, too little time, too few experts.</h2>
+      <p class="lead">We end this cycle by building AI Agents who work like your most seasoned experts &mdash; they make your newest hires perform like veterans, and stop fires before they start.</p>
+      <p class="lead handback">So you run the business and the business stops running you.</p>
     </div>
   </section>
 
-  <!-- Problems We Solve -->
-  <section>
+  <!-- HOW IT WORKS -->
+  <section class="dark how">
     <div class="container">
-      <div class="rail">
-        <div>
-          <p class="eyebrow">Problems we solve</p>
-          <h2>Where AI earns its keep on the shop floor.</h2>
+      <p class="lead title-lead">How it works</p>
+      <h2>Start small. See it work. Then decide.</h2>
+      <div class="steps">
+        <div class="step">
+          <p class="step-label"><span class="num">1</span>Scope a pilot</p>
+          <p>One problem. A price you know up front.</p>
         </div>
-        <div class="rail-body">
-          <p class="large">A short list of the problems we have found most worth solving first. Each is concrete, measurable, and low-risk to start.</p>
-          <ul class="list">
-            <li><span class="lbl">Repetitive engineering workflows</span><span class="desc">Routine drafting, comparisons, and reviews handled in minutes rather than hours.</span></li>
-            <li><span class="lbl">Document automation</span><span class="desc">Quotes, travelers, certs, and inspection records generated from your own templates and records.</span></li>
-            <li><span class="lbl">Quoting and order intake</span><span class="desc">Reading inbound RFQs and POs, extracting what matters, flagging anomalies before they reach the floor.</span></li>
-            <li><span class="lbl">Production reporting</span><span class="desc">Plain-language summaries of yesterday, this shift, this week — drawn from the systems you already run.</span></li>
-            <li><span class="lbl">Tribal knowledge capture</span><span class="desc">Turning the know-how of your most experienced operators and technicians into something the next hire can use.</span></li>
-            <li><span class="lbl">Operational visibility</span><span class="desc">A single place to ask, and answer, the questions you currently chase across three systems and a spreadsheet.</span></li>
-            <li><span class="lbl">Technical expert agents</span><span class="desc">An AI assistant at the machine that helps your people through the spot they would otherwise be stuck in.</span></li>
-            <li><span class="lbl">Receiving and shipping</span><span class="desc">Document authentication and automation so your team spends time shipping product, not paperwork.</span></li>
-          </ul>
+        <div class="step">
+          <p class="step-label"><span class="num">2</span>We build the agent</p>
+          <p>Built and deployed in days.</p>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Implementation Principles -->
-  <section class="alt">
-    <div class="container">
-      <div class="rail">
-        <div>
-          <p class="eyebrow">How we work</p>
-          <h2>Four principles. No exceptions.</h2>
-        </div>
-        <div class="rail-body">
-          <ul class="list">
-            <li><span class="lbl">Practical before experimental.</span><span class="desc">We start with a problem your team will feel solved this quarter, not a science project.</span></li>
-            <li><span class="lbl">Security-first.</span><span class="desc">Your data stays where it must — on-prem, private cloud, or hybrid. We deploy to your boundary, not ours.</span></li>
-            <li><span class="lbl">Low-disruption adoption.</span><span class="desc">We work alongside your existing systems and people. No rip-and-replace.</span></li>
-            <li><span class="lbl">ROI-focused.</span><span class="desc">Every engagement carries a measurable target. If we cannot point to the return, we do not deploy it.</span></li>
-          </ul>
+        <div class="step">
+          <p class="step-label"><span class="num">3</span>You keep it</p>
+          <p>You will use it every day.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Confidentiality / Trust -->
-  <section class="trust">
+  <!-- FOUNDER -->
+  <section class="light founder">
     <div class="container">
-      <p class="eyebrow">Confidentiality</p>
-      <h2>What you share with us, stays with us.</h2>
-      <p class="large">Manufacturing operations are private business. We treat your operational and business data as strictly confidential, with or without an NDA in place.</p>
-      <div class="pillars">
-        <div>
-          <h3>Your data is yours.</h3>
-          <p>We do not resell, repurpose, or train external models on your records. Period.</p>
-        </div>
-        <div>
-          <h3>Discretion in practice.</h3>
-          <p>We discuss outcomes and patterns, not customer names or specifics. We talk about what we built, not who we built it for.</p>
-        </div>
-        <div>
-          <h3>Promise behind delivery.</h3>
-          <p>We hold ourselves to the rule that what we deliver should always exceed what we promised.</p>
+      <p class="lead title-lead">From the Founder</p>
+      <h2>I build what I wish I&rsquo;d had.</h2>
+      <div class="founder-row">
+        <!-- TODO: replace SJ initials with a real photo of Sudhir -->
+        <div class="avatar" aria-hidden="true">SJ</div>
+        <div class="founder-text">
+          <p class="lead">For more than thirty years I&rsquo;ve run manufacturing operations &mdash; many of them companies I built and ran myself, across aerospace, medical, robotics, and semiconductor. I&rsquo;ve met nearly every problem a small or mid-sized operator faces, and solved most of them the hard way: on the floor, late at night.</p>
+          <p class="lead">The technology I needed then exists now. For the past two years I&rsquo;ve been building the AI agents I wish I&rsquo;d had on those nights &mdash; and putting them in the hands of operators like you.</p>
+          <p class="lead signature">&mdash; Sudhir Jain, Founder</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Founder teaser -->
-  <section class="founder">
+  <!-- CONFIDENTIALITY -->
+  <section class="dark data">
     <div class="container">
-      <div class="rail">
-        <div>
-          <p class="eyebrow">Founder</p>
-          <h2>Operator first. Technologist second.</h2>
-        </div>
-        <div class="rail-body">
-          <p class="large"><span class="name">Sudhir Jain</span> founded ai4smartmfg after decades of running and modernizing industrial operations. The work here is the work he has done in his own factories — tightened, repeatable, and offered to other manufacturers who want the same.</p>
-          <p style="margin-top: 24px;"><a href="about.html" class="btn btn-light">Read more</a></p>
-        </div>
-      </div>
+      <p class="lead title-lead">Your data</p>
+      <h2>Your data stays yours &mdash; confidential with or without an NDA.</h2>
+      <p class="lead">Your records, drawings, and IP live on your infrastructure. Reasoning runs on commercial LLM APIs (Anthropic, OpenAI, Google) under enterprise no-retention, no-training terms. For workloads that cannot leave the building, we deploy on-prem open-weight models.</p>
     </div>
   </section>
 
-  <!-- Closing CTA -->
-  <section class="closing">
+  <!-- CLOSING CTA -->
+  <section class="light cta">
     <div class="container">
       <h2>One conversation. Thirty minutes. No commitment.</h2>
-      <p>Tell us about your factory. We will tell you, plainly, whether AI belongs in your next quarter — and if it does, where to start.</p>
+      <p class="lead">Tell us about your operation. If AI isn&rsquo;t worth it yet, we&rsquo;ll say so. If it is, we&rsquo;ll show you the first problem to solve.</p>
       <div class="btn-row">
-        <a href="https://cal.com/REPLACE_ME" class="btn">Book a 30-minute call</a>
-        <a href="contact.html" class="btn btn-light">Send a note</a>
+        <a href="https://cal.com/ai4smartmfg/30min" class="btn btn-dark">Book a 30-minute call</a>
+        <a href="#contact-form" class="btn btn-outline">Send a note</a>
       </div>
+
+      <form id="contact-form" class="contact-form" action="/contact" method="POST" novalidate>
+        <div class="form-row">
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" required autocomplete="name">
+        </div>
+        <div class="form-row">
+          <label for="company">Company</label>
+          <input id="company" name="company" type="text" autocomplete="organization">
+        </div>
+        <div class="form-row">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" required autocomplete="email">
+        </div>
+        <div class="form-row">
+          <label for="phone">Phone (optional)</label>
+          <input id="phone" name="phone" type="tel" autocomplete="tel">
+        </div>
+        <div class="form-row">
+          <label for="message">What would you like to discuss?</label>
+          <textarea id="message" name="message" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-dark">Send</button>
+        <p class="form-note">We respond within one business day.</p>
+      </form>
     </div>
   </section>
 
@@ -148,17 +270,62 @@
 
 <footer class="site-footer">
   <div class="container footer-inner">
-    <div class="copy">
-      <p>© 2026 ai4smartmfg.</p>
-    </div>
-    <div class="footer-links">
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
+    <span>© 2026 ai4smartmfg.com</span>
+    <span class="footer-links">
       <a href="legal.html">Legal</a>
-    </div>
+    </span>
   </div>
 </footer>
 
-<script src="assets/js/nav.js"></script>
+<script>
+(function(){
+  var form = document.getElementById('contact-form');
+  if (!form) return;
+
+  var status = document.createElement('p');
+  status.className = 'form-status';
+  status.setAttribute('role', 'status');
+  status.setAttribute('aria-live', 'polite');
+  status.style.cssText = 'margin-top:0.75rem;font-size:0.9375rem;display:none;line-height:1.4;';
+  form.appendChild(status);
+
+  function setStatus(text, ok) {
+    status.textContent = text;
+    status.style.color = ok ? '#065F46' : '#991B1B';
+    status.style.display = 'block';
+  }
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    var btn = form.querySelector('button[type="submit"]');
+    var orig = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    status.style.display = 'none';
+
+    try {
+      var res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+      var data = {};
+      try { data = await res.json(); } catch (_) {}
+      if (res.ok && data.ok) {
+        setStatus('Thanks — we will respond within one business day.', true);
+        form.reset();
+      } else {
+        setStatus(data.error || 'Something went wrong. Please try again or book a call.', false);
+      }
+    } catch (err) {
+      setStatus('Connection error. Please try again or book a call.', false);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = orig;
+    }
+  });
+})();
+</script>
+
 </body>
 </html>

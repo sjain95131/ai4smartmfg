@@ -60,15 +60,15 @@ Resolve in batches once the site is live.
 |------|-------|---------|--------|
 | Primary CTA | Cal.com 30-min exploratory call OR have-us-call-you form | Both, side by side | Resolved. |
 | Public contact info | Not on website | None displayed | Resolved. |
-| Cal.com URL | TBD — Sudhir to create account | Placeholder `cal.com/REPLACE_ME` | **Open — need Cal.com URL.** |
-| Form endpoint | TBD — Formspree placeholder | Placeholder `formspree.io/f/REPLACE_ME` | **Open — need Formspree endpoint.** |
+| Cal.com URL | TBD — Sudhir to create account | `cal.com/ai4smartmfg/30min` | Resolved. |
+| Form endpoint | TBD — Formspree placeholder | Cloudflare Pages Function at `/contact` relays to `sudhir@ai4smartmfg.com` via Email Workers binding. | Resolved — pending dashboard binding config + first live test. |
 
 ## Asyjo disclosure
 
 | Item | Brief | Current | Status |
 |------|-------|---------|--------|
 | Footer | (silent) | "© 2026 ai4smartmfg." Asyjo line removed from visible footer. | Resolved. |
-| Legal entity | Asyjo Corporation contracts and invoices | Stated on `/legal.html`, linked from footer. No link to asyjo.com. | Resolved. |
+| Legal entity | Asyjo Inc (MA corporation) contracts and invoices | Stated on `/legal.html`, linked from footer. No link to asyjo.com. | Resolved. |
 | Public mention of Asyjo elsewhere | Keep low-key | None on home/about/contact | Resolved. |
 
 ## Imagery
@@ -85,7 +85,7 @@ Resolve in batches once the site is live.
 | Asyjo.com — neutral umbrella site | Separate project | Deferred. |
 | acquisitions.asyjo.com — de-emphasize | Separate project | Deferred. |
 | Stop Asyjo.com → acquisitions redirect | Separate project | Deferred. |
-| Cal.com account setup | External tool | Open — pending Sudhir. |
-| Formspree (or alt) account setup | External tool | Open — pending Sudhir. |
+| Cal.com account setup | External tool | Resolved — `cal.com/ai4smartmfg/30min` live, Google Calendar connected. |
+| Formspree (or alt) account setup | External tool | Dropped — replaced by Cloudflare Pages Function + Email Workers binding (`functions/contact.js`). No third-party account needed. |
 | Google Workspace + sudhir@ai4smartmfg.com | Phase 3 of this engagement | In progress. |
 | DKIM / SPF / DMARC | Phase 4 | In progress. |
