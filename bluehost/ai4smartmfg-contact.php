@@ -105,7 +105,10 @@ $safe_email = strip_crlf($email);
 // Build the email
 // -----------------------------------------------------------------------------
 $to      = 'sudhir@ai4smartmfg.com';
-$from    = 'no-reply@asyjo.com';  // sender on a Bluehost-authorized domain
+$from    = 'sjain@asyjo.com';  // real Bluehost mailbox — required so the
+                               // mail server accepts our outbound message
+                               // and so SPF passes at the recipient (asyjo.com's
+                               // SPF record covers Bluehost outbound IPs).
 $subject = 'New contact form submission' . ($company !== '' ? ' — ' . $company : '');
 
 $body  = "New contact submission from ai4smartmfg.com\r\n\r\n";
