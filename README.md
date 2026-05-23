@@ -16,12 +16,22 @@ Plain HTML, CSS, and a few lines of JS for the mobile nav. No framework, no buil
 
 ## Contact form
 
-The contact form posts to `/contact`, handled by `functions/contact.js` (a Cloudflare Pages Function). It builds an RFC 5322 message and relays it to `sudhir@ai4smartmfg.com` via the Cloudflare Email Workers `SEND_EMAIL` binding.
+The contact form posts to `/contact` (same-origin). Two pieces handle it because Pages Functions in this account don't expose the Send Email binding (only Workers do):
 
-**Required Cloudflare dashboard config** (one-time):
-1. Workers & Pages → this project → Settings → Functions → Bindings → **Add Send Email**
-2. Variable name: `SEND_EMAIL`
-3. Destination address: `sudhir@ai4smartmfg.com` (must already be a verified destination in Email Routing — it is, since inbound mail to that address works).
+1. **`functions/contact.js`** — Pages Function. Parses form data, validates, forwards the JSON payload to the email-relay Worker via a Service Binding.
+2. **`worker/email-relay.js`** — Standalone Worker (deployed separately). Receives the JSON payload, builds an RFC 5322 message, sends via its own Send Email binding to `sudhir@ai4smartmfg.com`.
+
+**Required one-time dashboard config:**
+
+*On the Worker (`ai4smartmfg-email-relay`):*
+- Settings → Variables → Bindings → **Add Send Email**
+- Variable name: `SEND_EMAIL`
+- Destination address: `sudhir@ai4smartmfg.com` (must be a verified destination in Email Routing for ai4smartmfg.com).
+
+*On the Pages project (`ai4smartmfg`):*
+- Settings → Bindings → **Add Service Binding**
+- Variable name: `EMAIL_RELAY`
+- Service: select the `ai4smartmfg-email-relay` Worker.
 
 Sender is `noreply@ai4smartmfg.com` (no mailbox required — Cloudflare permits sending from any address on the zone). `Reply-To` is set to the submitter, so replies in Gmail go directly to them.
 
