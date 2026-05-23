@@ -98,7 +98,17 @@ export default {
       }
       await env.SEND_EMAIL.send(new EmailMessage(FROM_ADDR, TO_ADDR, raw));
     } catch (err) {
-      return json({ ok: false, error: `Send failed: ${err.message || err}` }, 500);
+      // Surface every detail the binding gave us so we can diagnose.
+      const detail = {
+        name: err && err.name,
+        message: err && err.message,
+        stack: err && err.stack && String(err.stack).slice(0, 400),
+        cause: err && err.cause && String(err.cause).slice(0, 200),
+        from: FROM_ADDR,
+        to: TO_ADDR,
+      };
+      console.log("SEND_EMAIL failed", JSON.stringify(detail));
+      return json({ ok: false, error: `Send failed: ${err.message || err}`, detail }, 500);
     }
 
     return json({ ok: true });

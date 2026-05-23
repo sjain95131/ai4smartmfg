@@ -16,24 +16,32 @@ Plain HTML, CSS, and a few lines of JS for the mobile nav. No framework, no buil
 
 ## Contact form
 
-The contact form posts to `/contact` (same-origin). Two pieces handle it because Pages Functions in this account don't expose the Send Email binding (only Workers do):
+The contact form posts cross-origin to **Bluehost PHP**:
+[`bluehost/ai4smartmfg-contact.php`](bluehost/ai4smartmfg-contact.php) →
+hosted at `https://acquisitions.asyjo.com/ai4smartmfg-contact.php`.
 
-1. **`functions/contact.js`** — Pages Function. Parses form data, validates, forwards the JSON payload to the email-relay Worker via a Service Binding.
-2. **`worker/email-relay.js`** — Standalone Worker (deployed separately). Receives the JSON payload, builds an RFC 5322 message, sends via its own Send Email binding to `sudhir@ai4smartmfg.com`.
+The PHP handler validates fields, sends an RFC-2047-encoded text email via
+`mail()` to `sudhir@ai4smartmfg.com`, and replies in JSON. `Reply-To` is the
+submitter so hitting Reply in Gmail goes straight to them. CORS is locked to
+the production site, its `pages.dev` subdomain, and local dev.
 
-**Required one-time dashboard config:**
+**Deploying the PHP file:** upload `bluehost/ai4smartmfg-contact.php` to the
+Bluehost public web root for the `acquisitions.asyjo.com` site (same place
+`send-teaser.php` lives). No DNS / mail config changes — Bluehost's existing
+authorized sender (`no-reply@asyjo.com`) is reused.
 
-*On the Worker (`ai4smartmfg-email-relay`):*
-- Settings → Variables → Bindings → **Add Send Email**
-- Variable name: `SEND_EMAIL`
-- Destination address: `sudhir@ai4smartmfg.com` (must be a verified destination in Email Routing for ai4smartmfg.com).
+### Cloudflare-side code (inert)
 
-*On the Pages project (`ai4smartmfg`):*
-- Settings → Bindings → **Add Service Binding**
-- Variable name: `EMAIL_RELAY`
-- Service: select the `ai4smartmfg-email-relay` Worker.
+The earlier Cloudflare path is left in the repo but not wired to the form:
 
-Sender is `noreply@ai4smartmfg.com` (no mailbox required — Cloudflare permits sending from any address on the zone). `Reply-To` is set to the submitter, so replies in Gmail go directly to them.
+- `functions/contact.js` — Pages Function (used to receive form POST).
+- `worker/email-relay.js` — Standalone Worker with Send Email binding.
+- `wrangler.toml` — Pages-level Service Binding (`EMAIL_RELAY` → Worker).
+
+It didn't ship because Cloudflare's Send Email binding requires Email Routing
+to be enabled on the zone, which requires MX records pointing at Cloudflare —
+incompatible with this domain's Google Workspace MX. Kept as code for a
+future migration off Bluehost; safe to delete when no longer needed.
 
 ## Local preview
 ```bash
