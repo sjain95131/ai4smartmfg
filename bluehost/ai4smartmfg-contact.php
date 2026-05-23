@@ -139,9 +139,24 @@ $headers .= "X-Mailer: ai4smartmfg-contact-form\r\n";
 // -----------------------------------------------------------------------------
 // Send
 // -----------------------------------------------------------------------------
-$ok = @mail($to, $encoded_subject, $body, $headers, "-f {$from}");
+// Primary recipient + diagnostic copy. The copy goes to the same Bluehost
+// mailbox the form is being sent from, which bypasses Google Workspace and
+// proves Bluehost is actually putting mail on the wire. If only the copy
+// arrives, the problem is Workspace-side filtering.
+$ok_primary = @mail($to,    $encoded_subject, $body, $headers, "-f {$from}");
+$ok_diag    = @mail($from,  '[DIAG copy] ' . $encoded_subject, $body, $headers, "-f {$from}");
 
-if ($ok) {
+// Append a debug line locally so we can inspect if cPanel mail logs aren't
+// accessible. The log file lives next to this script; harmless if it stays
+// empty.
+@file_put_contents(
+  __DIR__ . '/ai4smartmfg-contact.log',
+  sprintf("[%s] primary=%s diag=%s name=%s email=%s\n",
+    date('c'), $ok_primary ? '1' : '0', $ok_diag ? '1' : '0', $name, $email),
+  FILE_APPEND
+);
+
+if ($ok_primary) {
   echo json_encode(['ok' => true]);
 } else {
   http_response_code(500);
