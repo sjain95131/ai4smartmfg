@@ -5,7 +5,7 @@ Public site for [ai4smartmfg.com](https://ai4smartmfg.com).
 ai4smartmfg is a practical-AI consultancy for small and mid-sized manufacturers. Sole legal entity behind it is Asyjo Inc (Massachusetts).
 
 ## Stack
-Plain HTML, CSS, and a few lines of JS for the mobile nav. No framework, no build step. Hosted free on Cloudflare Pages; pushes to `main` deploy automatically.
+Plain HTML, CSS, and a few lines of JS for the mobile nav/contact form. No framework, no build step for the static site. Hosted on Cloudflare Pages; pushes to `main` deploy automatically. Contact form delivery is handled by a separate Cloudflare Worker routed to `/api/contact`.
 
 ## Structure
 - `index.html` — landing page
@@ -13,29 +13,54 @@ Plain HTML, CSS, and a few lines of JS for the mobile nav. No framework, no buil
 - `contact.html` — Cal.com link + lead form
 - `assets/css/styles.css` — Inter Tight, monochrome with a single muted-industrial-blue accent (#3B5566)
 - `assets/js/nav.js` — mobile nav toggle
+- `assets/js/contact-form.js` — AJAX submit handling for contact forms
+- `worker/` — Cloudflare Worker that receives form posts and sends email
 
 ## Contact form
 
-The contact form posts cross-origin to **Bluehost PHP**:
-[`bluehost/ai4smartmfg-contact.php`](bluehost/ai4smartmfg-contact.php) →
-hosted at `https://asyjo.com/ai4smartmfg-contact.php`.
+The contact forms post to `/api/contact`, which is served by the Cloudflare Worker in
+[`worker/src/index.js`](worker/src/index.js). The public HTML does not include the
+destination address. The Worker sends the message to the Workspace mailbox stored
+in the Cloudflare-side `CONTACT_TO` secret through Cloudflare Email Sending using
+the `CONTACT_EMAIL` binding.
 
-The PHP handler validates fields, sends an RFC-2047-encoded text email via
-`mail()` to `sudhir@ai4smartmfg.com`, and replies in JSON. `Reply-To` is the
-submitter so hitting Reply in Gmail goes straight to them. CORS is locked to
-the production site, its `pages.dev` subdomain, and local dev.
+The Worker validates required fields, rejects disallowed origins, uses a hidden
+honeypot field for basic bot filtering, and sets `Reply-To` to the submitter so
+replying from Google Workspace goes straight back to the lead.
 
-**Deploying the PHP file:** upload `bluehost/ai4smartmfg-contact.php` to the
-Bluehost public web root for `asyjo.com`. No DNS / mail config changes —
-Bluehost's existing authorized sender (`no-reply@asyjo.com`) is reused.
+### Cloudflare setup
 
-### Why not Cloudflare for the contact form?
+Cloudflare Email Sending is Cloudflare-native, but it requires the Workers Paid
+plan. It does not require moving the main Google Workspace MX records away from
+Google. During Cloudflare Email Sending onboarding, Cloudflare adds sending
+authentication records on `cf-bounce.ai4smartmfg.com` plus DKIM/DMARC records.
+Do not enable Cloudflare Email Routing for the root domain unless you intend to
+replace Google Workspace inbound MX records.
 
-Cloudflare's Send Email binding requires Email Routing enabled on the zone,
-which requires MX records pointing at Cloudflare — incompatible with the
-domain's Google Workspace MX. An earlier Worker + Pages Function attempt
-was scrapped; if Bluehost is later retired, the cleanest replacement is a
-service like Resend called from a Pages Function (no MX changes needed).
+1. In Cloudflare, go to **Compute > Email Service > Email Sending**.
+2. Onboard `ai4smartmfg.com` for Email Sending.
+3. Let Cloudflare add the required sending DNS records and wait until they show
+   as verified/locked.
+4. From `worker/`, deploy the Worker:
+
+```bash
+npm install
+npx wrangler secret put CONTACT_TO
+npm run deploy
+```
+
+When prompted for `CONTACT_TO`, paste the Workspace email address that should
+receive form submissions. Keep that address in Cloudflare configuration only, not
+in public HTML or static files.
+
+The Worker config in [`worker/wrangler.jsonc`](worker/wrangler.jsonc) routes:
+
+- `https://ai4smartmfg.com/api/contact`
+- `https://www.ai4smartmfg.com/api/contact`
+
+If the sending address changes, update `CONTACT_FROM` and the
+`allowed_sender_addresses` entry in `worker/wrangler.jsonc`. If the receiving
+address changes, update the `CONTACT_TO` Worker secret in Cloudflare.
 
 ## Local preview
 ```bash

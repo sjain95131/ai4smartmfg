@@ -1,0 +1,28 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "ai4smartmfg-contact",
+  "main": "src/index.js",
+  "compatibility_date": "2026-05-23",
+  "routes": [
+    {
+      "pattern": "ai4smartmfg.com/api/contact",
+      "zone_name": "ai4smartmfg.com"
+    },
+    {
+      "pattern": "www.ai4smartmfg.com/api/contact",
+      "zone_name": "ai4smartmfg.com"
+    }
+  ],
+  "send_email": [
+    {
+      "name": "CONTACT_EMAIL",
+      "allowed_sender_addresses": [
+        "website@ai4smartmfg.com"
+      ]
+    }
+  ],
+  "vars": {
+    "CONTACT_FROM": "website@ai4smartmfg.com",
+    "ALLOWED_ORIGINS": "https://ai4smartmfg.com,https://www.ai4smartmfg.com,https://ai4smartmfg.pages.dev,http://localhost:8000,http://127.0.0.1:8000"
+  }
+}

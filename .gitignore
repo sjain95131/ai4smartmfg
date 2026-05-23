@@ -13,6 +13,7 @@ Thumbs.db
 
 # Local servers / build
 .cache/
+.wrangler/
 node_modules/
 dist/
 .tmp/

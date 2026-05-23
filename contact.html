@@ -39,7 +39,11 @@
       </div>
       <p style="font-size: 14px; color: var(--ink-soft); margin-top: 12px;">Prefer to write? Use the form below.</p>
 
-      <form class="contact-form" action="https://formspree.io/f/REPLACE_ME" method="POST" novalidate>
+      <form class="contact-form" action="/api/contact" method="POST" data-contact-form novalidate>
+        <div class="form-row" style="display:none;" aria-hidden="true">
+          <label for="website">Website</label>
+          <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+        </div>
         <div class="form-row">
           <label for="name">Name</label>
           <input id="name" name="name" type="text" required autocomplete="name">
@@ -81,5 +85,6 @@
 </footer>
 
 <script src="assets/js/nav.js"></script>
+<script src="assets/js/contact-form.js"></script>
 </body>
 </html>
